@@ -1,5 +1,9 @@
 package battleship;
-
+/**
+ * 
+ * @author Tianxiao Zhang, Eugene Chong
+ *
+ */
 public class BattleshipGame {
 	
 	/*

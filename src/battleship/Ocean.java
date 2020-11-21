@@ -1,78 +1,147 @@
 package battleship;
 
 public class Ocean {
-	
+
 	/*
-	 * contains a 10*10 array of Ships, representing an "ocean"
-	 * and some methods to manipulate it
+	 * contains a 10*10 array of Ships, representing an "ocean" and some methods to
+	 * manipulate it
 	 */
-	
-	//used to determine which ship is in any given location
-	private Ship[][]ships = new Ship[10][10];
-	
-	//the total number of shots fired by the user
+
+	/**
+	 * Used to determine quickly which ship is in any given location
+	 */
+	private Ship[][] ships = new Ship[10][10];
+
+	/**
+	 * The total number of shots fired by the user
+	 */
 	private int shotsFired;
-	
-	//the  number of times a shot hit a ship
+
+	/**
+	 * The number of times a shot hit a ship
+	 */
 	private int hitCount;
-	
-	//the number of ships sunk (10 ships in total)
+
+	/**
+	 * The number of ships sunk (10 ships in total)
+	 */
 	private int shipsSunk;
-	
-	//creates an "empty" ocean and initializes game variables
+
+	/**
+	 * Constructs an "empty" ocean and fills the ships array with EmptySea objects.
+	 * Initialize game variables.
+	 */
 	public Ocean() {
-		
+
+		// Fill ships array with EmptySea objects
+		for (int i = 0; i < this.ships.length; i++) {
+			for (int j = 0; j < this.ships[i].length; j++) {
+				ships[i][j] = new EmptySea();
+			}
+		}
+
+		// Initialize game variables
+		this.shotsFired = 0;
+		this.hitCount = 0;
+		this.shipsSunk = 0;
+
 	}
-	
-	/*
-	 * Methods
+
+	// Methods
+
+	/**
+	 * Places all ten ships randomly on the initially empty ocean
 	 */
 	void placeAllShipsRandomly() {
-		//place all ten ships randomly on the ocean
-		//place larger ships before the smaller ones
+		// place all ten ships randomly on the ocean
+		// place larger ships before the smaller ones
 	}
-	
+
+	/**
+	 * Check whether a given location contains a ship.
+	 * 
+	 * @param row
+	 * @param column
+	 * @return true if the given location contains a ship
+	 */
 	boolean isOccupied(int row, int column) {
-		//returns true if the given location contains a ship
+		// Get the type of ship in the given row/column
+		String shipType = this.ships[row][column].getShipType();
+
+		// Return true if the shipType is NOT "empty"
+		return !shipType.equals(EmptySea.type);
 	}
-	
+
+	/**
+	 * 
+	 * @param row
+	 * @param column
+	 * @return
+	 */
 	boolean shootAt(int row, int column) {
-		//returns true if the given location contains a "real" ship, still afloat
+		// Update the number of shots that have been fired
+		this.shotsFired++;
+		
+		// Check that area is occupied AND ship is still afloat
+		boolean hit = this.ships[row][column].shootAt(row, column);
+
+		// returns true if the given location contains a "real" ship, still afloat
+		if (hit) {
+			this.hitCount++;
+			return true;
+		} else {
+			return false;
+		}
+
 	}
-	
-	/*
-	 * Getters
+
+	// Getters
+	/**
+	 * @return the number of shots fired in the game
 	 */
 	int getShotsFired() {
-		//returns the number of shots fired
 		return this.shotsFired;
 	}
-	
+
+	/**
+	 * @return the number of hits recorded in the game
+	 */
 	int getHitCount() {
-		//returns the number of hits recorded
 		return this.hitCount;
 	}
-	
+
+	/**
+	 * @return the number of ships sunk in the game
+	 */
 	int getShipsSunk() {
-		//returns he number of ships sunk
 		return this.shipsSunk;
 	}
-	
+
+	/**
+	 * 
+	 * @return true if all ships have been sunk, otherwise false
+	 */
 	boolean isGameOver() {
-		//returns true if all ships have been sunk
-		if (this.getShipsSunk() == 10){
+		if (this.getShipsSunk() == 10) {
 			return true;
 		} else {
 			return false;
 		}
 	}
-	
-	Ship[] [] getShipArray(){
-		//returns the 10*10 array of Ships
+
+	/**
+	 * 
+	 * @return the 10x10 array of Ships
+	 */
+	public Ship[][] getShipArray() {
+		// returns the 10*10 array of Ships
 		return this.ships;
 	}
-	
+
+	/**
+	 * Prints the Ocean
+	 */
 	void print() {
-		//prints the Ocean
+		// prints the Ocean
 	}
 }

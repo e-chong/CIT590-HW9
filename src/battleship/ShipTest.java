@@ -201,25 +201,6 @@ class ShipTest {
 		//TODO
 		//More tests
 	}
-
-	@Test
-	void testGetLocationHit() {
-		
-		Ship battleship = new Battleship();
-		int row = 3;
-		int column = 9;
-		boolean horizontal = true;
-		battleship.placeShipAt(row, column, horizontal, ocean);
-		
-		assertFalse(battleship.getLocationHit(3, 8));
-		
-		battleship.shootAt(3, 7);
-		assertFalse(battleship.getLocationHit(3, 9));
-		
-		//TODO
-		//More tests
-		
-	}
 	
 	@Test
 	void testIsSunk() {
