@@ -193,7 +193,7 @@ public abstract class Ship {
 	}
 
 	/**
-	 * Check all the neighboring cells for a proposed ship. If any of those cells is
+	 * Helper function. Check all the neighboring cells for a proposed ship. If any of those cells is
 	 * occupied, return false. Otherwise, return true.
 	 * 
 	 * @param row
