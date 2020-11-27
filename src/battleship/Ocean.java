@@ -55,6 +55,26 @@ public class Ocean {
 	void placeAllShipsRandomly() {
 		// place all ten ships randomly on the ocean
 		// place larger ships before the smaller ones
+		
+		//iterate through the one battleship
+		for (int i = 0; i < 1; i++){
+		
+		}
+		
+		//iterate through the two cruisers
+		for (int i = 0; i < 2; i++){
+		
+		}
+		
+		//iterate through the three destroyers
+		for (int i = 0; i < 3; i++){
+		
+		}
+		
+		//iterate through the four submarines
+		for (int i = 0; i < 4; i++){
+		
+		}
 	}
 
 	/**
