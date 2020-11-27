@@ -30,7 +30,8 @@ public abstract class Ship {
 	 */
 	public Ship(int length) {
 		this.length = length;
-		this.hit = new boolean[] { false, false, false, false };
+		this.hit = new boolean[length];
+		//this.hit = new boolean[] { false, false, false, false };
 	}
 
 	// Getters
@@ -270,6 +271,23 @@ public abstract class Ship {
 	 * @param ocean
 	 */
 	void placeShipAt(int row, int column, boolean horizontal, Ocean ocean) {
+		
+		//get the current arrangement of the ocean
+		Ship[][] ships = ocean.getShipArray();
+		
+		
+		if (horizontal){
+			// if the ship is horizontally oriented
+			//mark all points from [row][column] to [row][column - length + 1]
+			for (int i = column - this.length + 1; i < column ; i++){
+				ships[row][i] = "S";
+			}	
+		} else {
+			// if the ship is vertically oriented
+			//mark all points from [row][column] to [row - length + 1][column]
+			for (int i = row - this.length + 1; i < row ; i++){
+				ships[i][column] = "S";
+		}
 	}
 
 	/**
@@ -281,7 +299,23 @@ public abstract class Ship {
 	 * @return true/false
 	 */
 	boolean shootAt(int row, int column) {
-
+		
+		//check whether a part of the ship occupies the given location and whether it has been sunk
+		if (this.ships[row][column] == "S" && this.isSunk() == false){
+			//mark the part of the ship as "hit"
+			if (horizontal){
+				// if the ship is horizontally oriented
+				this.hit[this.BowColumn - column] = true;
+			} else {
+				// if the ship is vertically oriented
+				this.hit[this.BowRow - row] = true;
+			}
+			
+			//return true
+			return true;
+		}
+		//return false otherwise
+		return false;
 	}
 
 	/**
