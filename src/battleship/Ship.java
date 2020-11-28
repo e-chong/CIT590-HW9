@@ -30,8 +30,8 @@ public abstract class Ship {
 	 */
 	public Ship(int length) {
 		this.length = length;
-		this.hit = new boolean[length];
-		//this.hit = new boolean[] { false, false, false, false };
+		//this.hit = new boolean[length];
+		this.hit = new boolean[] {false, false, false, false};
 	}
 
 	// Getters
@@ -179,7 +179,6 @@ public abstract class Ship {
 			for (int i = 0; i < extent.size(); i++) {
 				extent.add(column - i);
 			}
-
 		} else {
 			/*
 			 * if vertically oriented, take column coordinate of ship's bow and subtract
@@ -189,7 +188,6 @@ public abstract class Ship {
 				extent.add(row - i);
 			}
 		}
-
 		return extent;
 	}
 
@@ -253,10 +251,8 @@ public abstract class Ship {
 				}
 			}
 		}
-
 		// otherwise, return false
 		return false;
-
 	}
 
 	/**
@@ -274,19 +270,21 @@ public abstract class Ship {
 		
 		//get the current arrangement of the ocean
 		Ship[][] ships = ocean.getShipArray();
-		
+		this.bowRow = row;
+		this.bowColumn = column;
+		this.horizontal = horizontal;
 		
 		if (horizontal){
 			// if the ship is horizontally oriented
-			//mark all points from [row][column] to [row][column - length + 1]
+			//mark all points from [row][column] to [row][column - length + 1] to be the ship
 			for (int i = column - this.length + 1; i < column ; i++){
-				ships[row][i] = "S";
+				ships[row][i] = this;
 			}	
 		} else {
 			// if the ship is vertically oriented
-			//mark all points from [row][column] to [row - length + 1][column]
+			//mark all points from [row][column] to [row - length + 1][column] to be the ship
 			for (int i = row - this.length + 1; i < row ; i++){
-				ships[i][column] = "S";
+				ships[i][column] = this;
 		}
 	}
 
@@ -300,23 +298,61 @@ public abstract class Ship {
 	 */
 	boolean shootAt(int row, int column) {
 		
-		//check whether a part of the ship occupies the given location and whether it has been sunk
-		if (this.ships[row][column] == "S" && this.isSunk() == false){
-			//mark the part of the ship as "hit"
-			if (horizontal){
-				// if the ship is horizontally oriented
-				this.hit[this.BowColumn - column] = true;
-			} else {
-				// if the ship is vertically oriented
-				this.hit[this.BowRow - row] = true;
-			}
+		//if the ship is horizontally oriented and not sunk
+		if (horizontal &&  this.isSunk() == false) {
 			
-			//return true
-			return true;
+			//check if the bowRow is on the same row with the shot
+			if (this.bowRow == row) {
+				//if bowRow equals row, iterate through all columns occupied by the ship
+				for (int i = this.bowColumn - length + 1; i < this.bowColumn; i++) {
+					if (i == column) {
+						//if the location is occupied by a ship, 
+						//set the corresponding element in the hit array to be true
+						//in the hit array, index 0 indicates the bow
+						//so the corresponding index in the hit array is bowColumn - i
+						this.hit[this.bowColumn - i] = true;
+						return true;
+					}
+				}					
+			}
+			//if the ship is vertically oriented and not sunk
+		} else if (!horizontal && this.isSunk() == false) {
+			
+			//check if the bowColumn is in the same column with the shot
+			if (this.bowColumn == column) {
+				//if bowColumn equals column, iterate through all rows occupied by the ship
+				for (int i = this.bowRow - length + 1; i < this.bowRow; i++) {
+					if (i == row) {
+						//if the location is occupied by a ship, 
+						//set the corresponding element in the hit array to be true
+						//in the hit array, index 0 indicates the bow
+						//so the corresponding index in the hit array is bowRow - i
+						this.hit[this.bowRow - i] = true;
+						return true;
+					}
+				}					
+			}
 		}
 		//return false otherwise
 		return false;
 	}
+	
+//		
+//		//check whether a part of the ship occupies the given location and whether it has been sunk
+//		if (this.ships[row][column] == this && this.isSunk() == false){
+//			//mark the part of the ship as "hit"
+//			if (horizontal){
+//				// if the ship is horizontally oriented
+//				this.hit[this.BowColumn - column] = true;
+//			} else {
+//				// if the ship is vertically oriented
+//				this.hit[this.BowRow - row] = true;
+//			}
+//			//return true
+//			return true;
+//		}
+//		//return false otherwise
+//		return false;
 
 	/**
 	 * 
