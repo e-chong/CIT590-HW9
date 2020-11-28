@@ -1,5 +1,7 @@
 package battleship;
 
+import java.util.Random;
+
 public class Ocean {
 
 	/*
@@ -58,22 +60,94 @@ public class Ocean {
 		
 		//iterate through the one battleship
 		for (int i = 0; i < 1; i++){
-		
+			//initialize the ship
+			Ship Battleship = new Battleship();
+			
+			boolean satisfied = false;
+			
+			while (!satisfied) {
+			
+				//generate the row, column, horizontal variables
+				Random rand = new Random();
+				int row = rand.nextInt(9);
+				int column = rand.nextInt(9);
+				boolean horizontal = rand.nextBoolean();
+				
+				//check whether generated location is okToPlaceShipAt
+				//if it is ok to place ship, breaks out of the while loop
+				//if not, stays in the loop and generates new variables
+				satisfied = okToPlaceShipAt(row, column, horizontal, this);
+			}
+			Battleship.placeShipAt(row, column, horizontal, this);
 		}
 		
 		//iterate through the two cruisers
 		for (int i = 0; i < 2; i++){
-		
+			//initialize the ship
+			Ship Cruiser = new Cruiser();
+			
+			boolean satisfied = false;
+			
+			while (!satisfied) {
+			
+				//generate the row, column, horizontal variables
+				Random rand = new Random();
+				int row = rand.nextInt(9);
+				int column = rand.nextInt(9);
+				boolean horizontal = rand.nextBoolean();
+				
+				//check whether generated location is okToPlaceShipAt
+				//if it is ok to place ship, breaks out of the while loop
+				//if not, stays in the loop and generate new variables
+				satisfied = okToPlaceShipAt(row, column, horizontal, this);
+			}
+			Cruiser.placeShipAt(row, column, horizontal, this);
 		}
 		
 		//iterate through the three destroyers
 		for (int i = 0; i < 3; i++){
-		
+			//initialize the ship
+			Ship Destroyer = new Destroyer();
+			
+			boolean satisfied = false;
+			
+			while (!satisfied) {
+			
+				//generate the row, column, horizontal variables
+				Random rand = new Random();
+				int row = rand.nextInt(9);
+				int column = rand.nextInt(9);
+				boolean horizontal = rand.nextBoolean();
+				
+				//check whether generated location is okToPlaceShipAt
+				//if it is ok to place ship, breaks out of the while loop
+				//if not, stays in the loop and generate new variables
+				satisfied = okToPlaceShipAt(row, column, horizontal, this);
+			}
+			Destroyer.placeShipAt(row, column, horizontal, this);
 		}
 		
 		//iterate through the four submarines
 		for (int i = 0; i < 4; i++){
-		
+			//initialize the ship
+			Ship Submarine = new Submarine();
+			
+			boolean satisfied = false;
+			
+			while (!satisfied) {
+			
+				//generate the row, column, horizontal variables
+				Random rand = new Random();
+				int row = rand.nextInt(9);
+				int column = rand.nextInt(9);
+				boolean horizontal = rand.nextBoolean();
+				
+				//check whether generated location is okToPlaceShipAt
+				//if it is ok to place ship, breaks out of the while loop
+				//if not, stays in the loop and generate new variables
+				satisfied = okToPlaceShipAt(row, column, horizontal, this);
+			}
+			Submarine.placeShipAt(row, column, horizontal, this);
 		}
 	}
 
