@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-class ShipTest {
+class ShipTest_v2 {
 
 	Ocean ocean;
 	Ship ship;
@@ -62,20 +62,6 @@ class ShipTest {
 		//TODO
 		//More tests
 	}
-
-	@Test
-	void testIsHorizontal​() {
-		Ship battleship = new Battleship();
-		int row = 0;
-		int column = 4;
-		boolean horizontal = true;
-		battleship.placeShipAt(row, column, horizontal, ocean);
-		assertTrue(battleship.isHorizontal​());
-		
-		//TODO
-		//More tests		
-	}
-
 	@Test
 	void testGetShipType() {
 		ship = new Battleship();
@@ -84,7 +70,20 @@ class ShipTest {
 		//TODO
 		//More tests
 	}
-
+	
+	@Test
+	void testIsHorizontal() {
+		Ship battleship = new Battleship();
+		int row = 0;
+		int column = 4;
+		boolean horizontal = true;
+		battleship.placeShipAt(row, column, horizontal, ocean);
+		assertTrue(battleship.isHorizontal());
+		
+		//TODO
+		//More tests	
+	}
+	
 	@Test
 	void testSetBowRow() {
 		Ship battleship = new Battleship();
@@ -118,7 +117,7 @@ class ShipTest {
 		int column = 4;
 		boolean horizontal = true;
 		battleship.setHorizontal(horizontal);
-		assertTrue(battleship.isHorizontal​());
+		assertTrue(battleship.isHorizontal());
 		
 		//TODO
 		//More tests
@@ -175,7 +174,7 @@ class ShipTest {
 		battleship.placeShipAt(row, column, horizontal, ocean);
 		assertEquals(row, battleship.getBowRow());
 		assertEquals(column, battleship.getBowColumn());
-		assertTrue(battleship.isHorizontal​());
+		assertTrue(battleship.isHorizontal());
 		
 		assertEquals("empty", ocean.getShipArray()[0][0].getShipType());
 		assertEquals(battleship, ocean.getShipArray()[0][1]);

@@ -11,6 +11,12 @@ class OceanTest {
 
 	Ocean ocean;
 	
+	static int NUM_BATTLESHIPS = 1;
+	static int NUM_CRUISERS = 2;
+	static int NUM_DESTROYERS = 3;
+	static int NUM_SUBMARINES = 4;
+	static int OCEAN_SIZE = 10;
+	
 	@BeforeEach
 	void setUp() throws Exception {
 		ocean = new Ocean();
@@ -80,17 +86,17 @@ class OceanTest {
 			}
 		}
 		
-		assertEquals(Ocean.NUM_BATTLESHIPS, numBattlehips);
-		assertEquals(Ocean.NUM_CRUISERS, numCruisers);
-		assertEquals(Ocean.NUM_DESTROYERS, numDestroyers);
-		assertEquals(Ocean.NUM_SUBMARINES, numSubmarines);
+		assertEquals(NUM_BATTLESHIPS, numBattlehips);
+		assertEquals(NUM_CRUISERS, numCruisers);
+		assertEquals(NUM_DESTROYERS, numDestroyers);
+		assertEquals(NUM_SUBMARINES, numSubmarines);
 		
 		//calculate total number of available spaces and occupied spaces
-		int totalSpaces = Ocean.OCEAN_SIZE * Ocean.OCEAN_SIZE; 
-		int occupiedSpaces = (Ocean.NUM_BATTLESHIPS * Battleship.SHIP_LENGTH)
-				+ (Ocean.NUM_CRUISERS * Cruiser.SHIP_LENGTH)
-				+ (Ocean.NUM_DESTROYERS * Destroyer.SHIP_LENGTH)
-				+ (Ocean.NUM_SUBMARINES * Submarine.SHIP_LENGTH);
+		int totalSpaces = OCEAN_SIZE * OCEAN_SIZE; 
+		int occupiedSpaces = (NUM_BATTLESHIPS * 4)
+				+ (NUM_CRUISERS * 3)
+				+ (NUM_DESTROYERS * 2)
+				+ (NUM_SUBMARINES * 1);
 		
 		//test number of empty seas, each with length of 1
 		assertEquals(totalSpaces - occupiedSpaces, numEmptySeas);
@@ -207,8 +213,8 @@ class OceanTest {
 	void testGetShipArray() {
 		
 		Ship[][] shipArray = ocean.getShipArray();
-		assertEquals(Ocean.OCEAN_SIZE, shipArray.length);
-		assertEquals(Ocean.OCEAN_SIZE, shipArray[0].length);
+		assertEquals(OCEAN_SIZE, shipArray.length);
+		assertEquals(OCEAN_SIZE, shipArray[0].length);
 		
 		assertEquals("empty", shipArray[0][0].getShipType());
 		
