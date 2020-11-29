@@ -82,35 +82,7 @@ public class BattleshipGame {
 		scanner.close();
 		
 
-		/*
-		 * 
-		 * // print ocean ocean.print();
-		 * 
-		 * // testing ocean.shootAt(5, 7); ocean.shootAt(2, 7); ocean.shootAt(4, 7);
-		 * ocean.shootAt(3, 7); ocean.shootAt(5, 6); ocean.shootAt(2, 6);
-		 * ocean.shootAt(4, 6); ocean.shootAt(3, 6); ocean.shootAt(5, 8);
-		 * ocean.shootAt(2, 8); ocean.shootAt(4, 8); ocean.shootAt(3, 8);
-		 * ocean.shootAt(5, 9); ocean.shootAt(2, 9); ocean.shootAt(4, 9);
-		 * ocean.shootAt(3, 9); ocean.shootAt(5, 5); ocean.shootAt(2, 5);
-		 * ocean.shootAt(4, 5); ocean.shootAt(3, 5); ocean.shootAt(5, 4);
-		 * ocean.shootAt(2, 4); ocean.shootAt(4, 4); ocean.shootAt(3, 4);
-		 * ocean.shootAt(5, 3); ocean.shootAt(2, 3); ocean.shootAt(4, 3);
-		 * ocean.shootAt(3, 3); ocean.shootAt(5, 2); ocean.shootAt(2, 2);
-		 * ocean.shootAt(4, 2); ocean.shootAt(3, 2); ocean.shootAt(5, 1);
-		 * ocean.shootAt(2, 1); ocean.shootAt(4, 1); ocean.shootAt(3, 1);
-		 * ocean.shootAt(5, 0); ocean.shootAt(2, 0); ocean.shootAt(4, 0);
-		 * ocean.shootAt(3, 0); ocean.shootAt(9, 0); ocean.shootAt(9, 1);
-		 * ocean.shootAt(9, 2); ocean.shootAt(9, 3); ocean.shootAt(9, 4);
-		 * ocean.shootAt(9, 5); ocean.shootAt(9, 6); ocean.shootAt(9, 7);
-		 * ocean.shootAt(9, 8); ocean.shootAt(9, 9); ocean.print();
-		 * 
-		 * System.out.println(ocean.getHitCount());
-		 * System.out.println(ocean.getShipsSunk());
-		 * 
-		 * Ship Battleship = new Battleship();
-		 * System.out.println(Battleship.getLength());
-		 * 
-		 */
+		
 	}
 
 	/**

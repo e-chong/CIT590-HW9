@@ -75,8 +75,9 @@ public class Ocean {
 			int column = 0;
 			boolean horizontal = true;
 
-			while (!satisfied) {
-
+			int satisfiedCounter = 0;
+			while (satisfied == false) {
+				
 				// generate the row, column, horizontal variables
 				row = rand.nextInt(10);
 				column = rand.nextInt(10);
@@ -86,6 +87,13 @@ public class Ocean {
 				// if it is okay to place ship, breaks out of the while loop
 				// if not, stays in the loop and generates new variables
 				satisfied = battleship.okToPlaceShipAt(row, column, horizontal, this);
+				
+				System.out.println("row attempt: " + row);
+				System.out.println("column attempt: " + column);
+				System.out.println("Battleship satisfied counter: " + satisfiedCounter);
+				
+				satisfiedCounter++;
+				
 			}
 			battleship.placeShipAt(row, column, horizontal, this);
 		}
@@ -102,7 +110,8 @@ public class Ocean {
 			int column = 0;
 			boolean horizontal = true;
 
-			while (!satisfied) {
+			int satisfiedCounter = 0;
+			while (satisfied == false) {
 
 				// generate the row, column, horizontal variables
 				row = rand.nextInt(10);
@@ -113,6 +122,14 @@ public class Ocean {
 				// if it is okay to place ship, breaks out of the while loop
 				// if not, stays in the loop and generates new variables
 				satisfied = cruiser.okToPlaceShipAt(row, column, horizontal, this);
+				
+				System.out.println("row attempt: " + row);
+				System.out.println("column attempt: " + column);
+				System.out.println("Cruiser satisfied counter: " + satisfiedCounter);
+				
+				satisfiedCounter++;
+				
+				
 			}
 			cruiser.placeShipAt(row, column, horizontal, this);
 		}
@@ -129,7 +146,8 @@ public class Ocean {
 			int column = 0;
 			boolean horizontal = true;
 
-			while (!satisfied) {
+			int satisfiedCounter = 0;
+			while (satisfied == false) {
 
 				// generate the row, column, horizontal variables
 				row = rand.nextInt(10);
@@ -140,6 +158,12 @@ public class Ocean {
 				// if it is okay to place ship, breaks out of the while loop
 				// if not, stays in the loop and generates new variables
 				satisfied = destroyer.okToPlaceShipAt(row, column, horizontal, this);
+				
+				System.out.println("row attempt: " + row);
+				System.out.println("column attempt: " + column);
+				System.out.println("Destroyer satisfied counter: " + satisfiedCounter);
+				
+				satisfiedCounter++;
 			}
 			destroyer.placeShipAt(row, column, horizontal, this);
 		}
@@ -156,7 +180,8 @@ public class Ocean {
 			int column = 0;
 			boolean horizontal = true;
 
-			while (!satisfied) {
+			int satisfiedCounter = 0;
+			while (satisfied == false) {
 
 				// generate the row, column, horizontal variables
 				row = rand.nextInt(10);
@@ -167,6 +192,12 @@ public class Ocean {
 				// if it is okay to place ship, breaks out of the while loop
 				// if not, stays in the loop and generates new variables
 				satisfied = submarine.okToPlaceShipAt(row, column, horizontal, this);
+				
+				System.out.println("row attempt: " + row);
+				System.out.println("column attempt: " + column);
+				System.out.println("Submarine satisfied counter: " + satisfiedCounter);
+				
+				satisfiedCounter++;
 			}
 			submarine.placeShipAt(row, column, horizontal, this);
 		}
@@ -181,10 +212,10 @@ public class Ocean {
 	 */
 	boolean isOccupied(int row, int column) {
 		// Get the type of ship in the given row/column
-		String shipType = this.ships[row][column].getShipType();
-
+		String shipType = this.getShipArray()[row][column].getShipType();
+		
 		// Return true if the shipType is NOT "empty"
-		return !shipType.equals(EmptySea.type);
+		return (shipType.equals(EmptySea.type) == false);
 	}
 
 	/**

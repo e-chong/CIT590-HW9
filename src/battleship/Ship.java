@@ -138,25 +138,100 @@ public abstract class Ship {
 		if (row < 0 || row > 9 || column < 0 || column > 9) {
 			return false;
 		}
+		
+		// new version
+		int shipLength = this.getLength();
+		
+		if (horizontal) {
+			if (row == 9) {
+				for (int i = 0; i < shipLength; i++) {
+					for (int j = -1; j < 1; j++) {
+						if (ocean.isOccupied(row + j, column - i)) {
+							return false;
+						}
+					}
+				}
+			} else if (row == 0) {
+				for (int i = 0; i < shipLength; i++) {
+					for (int j = 0; j < 2; j++) {
+						if (ocean.isOccupied(row + j, column - i)) {
+							return false;
+						}
+					}
+				}
+			} else {
+				for (int i = 0; i < shipLength; i++) {
+					for (int j = -1; j < 2; j++) {
+						if (ocean.isOccupied(row + j, column - i)) {
+							return false;
+						}
+					}
+				}
+			}
+		} else {
+			if (column == 9) {
+				for (int i = 0; i < shipLength; i++) {
+					for (int j = -1; j < 1; j++) {
+						if (ocean.isOccupied(row - i, column + j)) {
+							return false;
+						}
+					}
+				}
+			} else if (column == 0) {
+				for (int i = 0; i < shipLength; i++) {
+					for (int j = 0; j < 2; j++) {
+						if (ocean.isOccupied(row - i, column + j)) {
+							return false;
+						}
+					}
+				}
+			} else {
+				for (int i = 0; i < shipLength; i++) {
+					for (int j = -1; j < 2; j++) {
+						if (ocean.isOccupied(row - i, column + j)) {
+							return false;
+						}
+					}
+				}
+			}		
+		}
+			
+			
+
+
+		
+		
+		
+		
+		
+	
 
 		/*
 		 * Get the ship's extent using the getShipExtent() helper method. If the last
 		 * element of the extent array is less than 0, the ship is "hanging off" the
 		 * edge of the board and its position is invalid.
 		 */
+		
+		/*
 		ArrayList<Integer> extentArray = this.getShipExtent(row, column, horizontal);
 
 		if (extentArray.get(extentArray.size() - 1) < 0) {
 			return false;
 		}
+		
+		*/
 
 		/*
 		 * If any part of the ship overlaps with or is within 1 cell of another ship in
 		 * the ocean, return false
 		 */
+		
+		/*
 		if (this.checkNeighbors(row, column, extentArray, horizontal, ocean)) {
 			return false;
 		}
+		
+		*/
 
 		// otherwise return true
 		return true;
@@ -202,7 +277,7 @@ public abstract class Ship {
 
 	/**
 	 * Helper function. Check all the neighboring cells for a proposed ship. If any
-	 * of those cells is occupied, return false. Otherwise, return true.
+	 * of those cells is occupied, return true. Otherwise, return false.
 	 * 
 	 * @param row
 	 * @param column
@@ -229,6 +304,7 @@ public abstract class Ship {
 		}
 
 		// if the ship is horizontally oriented
+		int neighbors = 0;
 		if (horizontal) {
 			// consider the cells in the row above and below the ship as well
 			ArrayList<Integer> rows = new ArrayList<Integer>();
@@ -252,7 +328,8 @@ public abstract class Ship {
 					occupied = ocean.isOccupied(rows.get(j), extent.get(i));
 					if (occupied) {
 						// and if so, return true
-						return true;
+						neighbors++;
+						//return true;
 					}
 				}
 			}
@@ -280,13 +357,18 @@ public abstract class Ship {
 					occupied = ocean.isOccupied(extent.get(i), cols.get(j));
 					if (occupied) {
 						// and if so, return true
+						neighbors++;
 						return true;
 					}
 				}
 			}
 		}
-		// otherwise, return false
-		return false;
+		
+		if (neighbors > 0) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	/**
