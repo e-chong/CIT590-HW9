@@ -30,8 +30,7 @@ public abstract class Ship {
 	 */
 	public Ship(int length) {
 		this.length = length;
-		//this.hit = new boolean[length];
-		this.hit = new boolean[] {false, false, false, false};
+		this.hit = new boolean[4];
 	}
 
 	// Getters
@@ -92,6 +91,14 @@ public abstract class Ship {
 	 */
 	public void setBowColumn(int column) {
 		this.bowColumn = column;
+	}
+	
+	/**
+	 * Sets the value of the hit array at the given index to true.
+	 * @param index
+	 */
+	public void setHit(int index) {
+		this.hit[index] = true;
 	}
 
 	/**
@@ -171,12 +178,14 @@ public abstract class Ship {
 		// First initialize an int ArrayList the same length as the ship
 		ArrayList<Integer> extent = new ArrayList<Integer>();
 
+		int shipLength = this.getLength();
+
 		if (horizontal) {
 			/*
 			 * if horizontally oriented, take row coordinate of ship's bow and subtract
 			 * ship's length
 			 */
-			for (int i = 0; i < extent.size(); i++) {
+			for (int i = 0; i < shipLength; i++) {
 				extent.add(column - i);
 			}
 		} else {
@@ -184,7 +193,7 @@ public abstract class Ship {
 			 * if vertically oriented, take column coordinate of ship's bow and subtract
 			 * ship's length
 			 */
-			for (int i = 0; i < extent.size(); i++) {
+			for (int i = 0; i < shipLength; i++) {
 				extent.add(row - i);
 			}
 		}
@@ -192,8 +201,8 @@ public abstract class Ship {
 	}
 
 	/**
-	 * Helper function. Check all the neighboring cells for a proposed ship. If any of those cells is
-	 * occupied, return false. Otherwise, return true.
+	 * Helper function. Check all the neighboring cells for a proposed ship. If any
+	 * of those cells is occupied, return false. Otherwise, return true.
 	 * 
 	 * @param row
 	 * @param column
@@ -213,20 +222,34 @@ public abstract class Ship {
 		 * ArrayList is always the largest value, so add 1. The last element is always
 		 * the smallest, so subtract 1.
 		 */
-		extent.add(0, extent.get(0) + 1);
-		extent.add(extent.get(extent.size() - 1) - 1);
+		if (extent.get(0) < 9) {
+			extent.add(0, extent.get(0) + 1);
+		} else if (extent.get(extent.size() - 1) > 0) {
+			extent.add(extent.get(extent.size() - 1) - 1);
+		}
 
 		// if the ship is horizontally oriented
 		if (horizontal) {
 			// consider the cells in the row above and below the ship as well
-			int[] rows = { row - 1, row, row + 1 };
+			ArrayList<Integer> rows = new ArrayList<Integer>();
+			if (row == 9) {
+				rows.add(row - 1);
+				rows.add(row);
+			} else if (row == 0) {
+				rows.add(row);
+				rows.add(row + 1);
+			} else {
+				rows.add(row - 1);
+				rows.add(row);
+				rows.add(row + 1);
+			}
 
 			// for every column in the extent ArrayList
 			for (int i = 0; i < extent.size(); i++) {
-				// and every row in the row Array
-				for (int j = 0; j < rows.length; j++) {
+				// and every row in the rows Array
+				for (int j = 0; j < rows.size(); j++) {
 					// check if that cell is occupied
-					occupied = ocean.isOccupied(rows[j], extent.get(i));
+					occupied = ocean.isOccupied(rows.get(j), extent.get(i));
 					if (occupied) {
 						// and if so, return true
 						return true;
@@ -236,14 +259,25 @@ public abstract class Ship {
 			// if the ship is vertically oriented
 		} else {
 			// consider the cells in the column to the left and right of the ship as well
-			int[] cols = { column - 1, column, column + 1 };
+			ArrayList<Integer> cols = new ArrayList<Integer>();
+			if (column == 9) {
+				cols.add(column - 1);
+				cols.add(column);
+			} else if (column == 0) {
+				cols.add(column);
+				cols.add(column + 1);
+			} else {
+				cols.add(column - 1);
+				cols.add(column);
+				cols.add(column + 1);
+			}
 
 			// for every row in the extent ArrayList
 			for (int i = 0; i < extent.size(); i++) {
-				// and every row in the row Array
-				for (int j = 0; j < cols.length; j++) {
+				// and every col in the cols Array
+				for (int j = 0; j < cols.size(); j++) {
 					// check if that cell is occupied
-					occupied = ocean.isOccupied(extent.get(i), cols[j]);
+					occupied = ocean.isOccupied(extent.get(i), cols.get(j));
 					if (occupied) {
 						// and if so, return true
 						return true;
@@ -256,7 +290,7 @@ public abstract class Ship {
 	}
 
 	/**
-	 * Places a ship in the ocean using the given parameters Also puts a reference
+	 * Places a ship in the ocean using the given parameters. Also puts a reference
 	 * to the ship in the relevant locations in the ships array in the ocean object
 	 * Assume that horizontal ships have their bow at the right end, and vertical
 	 * ships have their bow at the bottom end
@@ -267,24 +301,27 @@ public abstract class Ship {
 	 * @param ocean
 	 */
 	void placeShipAt(int row, int column, boolean horizontal, Ocean ocean) {
-		
-		//get the current arrangement of the ocean
+
+		// get the current arrangement of the ocean
 		Ship[][] ships = ocean.getShipArray();
 		this.bowRow = row;
 		this.bowColumn = column;
 		this.horizontal = horizontal;
-		
-		if (horizontal){
+
+		if (horizontal) {
 			// if the ship is horizontally oriented
-			//mark all points from [row][column] to [row][column - length + 1] to be the ship
-			for (int i = column - this.length + 1; i < column ; i++){
+			// mark all points from [row][column] to [row][column - length + 1] to be the
+			// ship
+			for (int i = column - this.length + 1; i <= column; i++) {
 				ships[row][i] = this;
-			}	
+			}
 		} else {
 			// if the ship is vertically oriented
-			//mark all points from [row][column] to [row - length + 1][column] to be the ship
-			for (int i = row - this.length + 1; i < row ; i++){
+			// mark all points from [row][column] to [row - length + 1][column] to be the
+			// ship
+			for (int i = row - this.length + 1; i <= row; i++) {
 				ships[i][column] = this;
+			}
 		}
 	}
 
@@ -297,62 +334,50 @@ public abstract class Ship {
 	 * @return true/false
 	 */
 	boolean shootAt(int row, int column) {
-		
-		//if the ship is horizontally oriented and not sunk
-		if (horizontal &&  this.isSunk() == false) {
-			
-			//check if the bowRow is on the same row with the shot
-			if (this.bowRow == row) {
-				//if bowRow equals row, iterate through all columns occupied by the ship
-				for (int i = this.bowColumn - length + 1; i < this.bowColumn; i++) {
+
+		int bowColumn = this.getBowColumn();
+		int bowRow = this.getBowRow();
+		boolean sunk = this.isSunk();
+
+		// if the ship is horizontally oriented and not sunk
+		if (horizontal && sunk == false) {
+
+			// check if the bowRow is on the same row with the shot
+			if (bowRow == row) {
+				// if bowRow equals row, iterate through all columns occupied by the ship
+				for (int i = bowColumn - length + 1; i <= bowColumn; i++) {
 					if (i == column) {
-						//if the location is occupied by a ship, 
-						//set the corresponding element in the hit array to be true
-						//in the hit array, index 0 indicates the bow
-						//so the corresponding index in the hit array is bowColumn - i
-						this.hit[this.bowColumn - i] = true;
+						// if the location is occupied by a ship,
+						// set the corresponding element in the hit array to be true
+						// in the hit array, index 0 indicates the bow
+						// so the corresponding index in the hit array is bowColumn - i
+						this.setHit(bowColumn - i);
 						return true;
 					}
-				}					
+				}
 			}
-			//if the ship is vertically oriented and not sunk
-		} else if (!horizontal && this.isSunk() == false) {
-			
-			//check if the bowColumn is in the same column with the shot
-			if (this.bowColumn == column) {
-				//if bowColumn equals column, iterate through all rows occupied by the ship
-				for (int i = this.bowRow - length + 1; i < this.bowRow; i++) {
+			// if the ship is vertically oriented and not sunk
+		} else if (!horizontal && sunk == false) {
+
+			// check if the bowColumn is in the same column with the shot
+			if (bowColumn == column) {
+				// if bowColumn equals column, iterate through all rows occupied by the ship
+				for (int i = bowRow - length + 1; i <= bowRow; i++) {
 					if (i == row) {
-						//if the location is occupied by a ship, 
-						//set the corresponding element in the hit array to be true
-						//in the hit array, index 0 indicates the bow
-						//so the corresponding index in the hit array is bowRow - i
-						this.hit[this.bowRow - i] = true;
+						// if the location is occupied by a ship,
+						// set the corresponding element in the hit array to be true
+						// in the hit array, index 0 indicates the bow
+						// so the corresponding index in the hit array is bowRow - i
+						this.setHit(bowRow - i);
 						return true;
 					}
-				}					
+				}
 			}
 		}
-		//return false otherwise
+		// return false otherwise
 		return false;
 	}
-	
-//		
-//		//check whether a part of the ship occupies the given location and whether it has been sunk
-//		if (this.ships[row][column] == this && this.isSunk() == false){
-//			//mark the part of the ship as "hit"
-//			if (horizontal){
-//				// if the ship is horizontally oriented
-//				this.hit[this.BowColumn - column] = true;
-//			} else {
-//				// if the ship is vertically oriented
-//				this.hit[this.BowRow - row] = true;
-//			}
-//			//return true
-//			return true;
-//		}
-//		//return false otherwise
-//		return false;
+
 
 	/**
 	 * 
@@ -361,20 +386,24 @@ public abstract class Ship {
 	boolean isSunk() {
 		// initialize a counter for the number of hits
 		int hits = 0;
+		boolean[] hit = this.getHit();
+		int shipLength = this.getLength();
 
 		/*
 		 * Loop over the first n elements of the hit array, where n is the length of the
 		 * ship. Convert the boolean values to ints and sum them up.
 		 */
-		for (int i = 0; i < this.getLength() - 1; i++) {
-			hits += hit[i] ? 1 : 0;
+		for (int i = 0; i < shipLength; i++) {
+			if (hit[i]) {
+				hits++;
+			}
 		}
 
 		/*
-		 * If the number of hits is equal to the length of the ship, the ship was sunk, so return true.
-		 * Otherwise return false.
+		 * If the number of hits is equal to the length of the ship, the ship was sunk,
+		 * so return true. Otherwise return false.
 		 */
-		if (hits == this.getLength()) {
+		if (hits == shipLength) {
 			return true;
 		} else {
 			return false;
@@ -388,6 +417,11 @@ public abstract class Ship {
 	 */
 	@Override
 	public String toString() {
+		
+		//test
+		//int length = this.getLength();
+		// return String.valueOf(length);
+		
 		if (this.isSunk()) {
 			return "s";
 		} else {
