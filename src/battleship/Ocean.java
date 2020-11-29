@@ -44,6 +44,7 @@ public class Ocean {
 		for (int i = 0; i < this.ships.length; i++) {
 			for (int j = 0; j < this.ships[i].length; j++) {
 				ships[i][j] = new EmptySea();
+				ships[i][j].placeShipAt(i, j, true, this);
 			}
 		}
 
@@ -75,7 +76,6 @@ public class Ocean {
 			int column = 0;
 			boolean horizontal = true;
 
-			int satisfiedCounter = 0;
 			while (satisfied == false) {
 				
 				// generate the row, column, horizontal variables
@@ -87,12 +87,6 @@ public class Ocean {
 				// if it is okay to place ship, breaks out of the while loop
 				// if not, stays in the loop and generates new variables
 				satisfied = battleship.okToPlaceShipAt(row, column, horizontal, this);
-				
-				System.out.println("row attempt: " + row);
-				System.out.println("column attempt: " + column);
-				System.out.println("Battleship satisfied counter: " + satisfiedCounter);
-				
-				satisfiedCounter++;
 				
 			}
 			battleship.placeShipAt(row, column, horizontal, this);
@@ -110,7 +104,6 @@ public class Ocean {
 			int column = 0;
 			boolean horizontal = true;
 
-			int satisfiedCounter = 0;
 			while (satisfied == false) {
 
 				// generate the row, column, horizontal variables
@@ -121,14 +114,7 @@ public class Ocean {
 				// check whether generated location is okToPlaceShipAt
 				// if it is okay to place ship, breaks out of the while loop
 				// if not, stays in the loop and generates new variables
-				satisfied = cruiser.okToPlaceShipAt(row, column, horizontal, this);
-				
-				System.out.println("row attempt: " + row);
-				System.out.println("column attempt: " + column);
-				System.out.println("Cruiser satisfied counter: " + satisfiedCounter);
-				
-				satisfiedCounter++;
-				
+				satisfied = cruiser.okToPlaceShipAt(row, column, horizontal, this);				
 				
 			}
 			cruiser.placeShipAt(row, column, horizontal, this);
@@ -146,7 +132,6 @@ public class Ocean {
 			int column = 0;
 			boolean horizontal = true;
 
-			int satisfiedCounter = 0;
 			while (satisfied == false) {
 
 				// generate the row, column, horizontal variables
@@ -158,12 +143,7 @@ public class Ocean {
 				// if it is okay to place ship, breaks out of the while loop
 				// if not, stays in the loop and generates new variables
 				satisfied = destroyer.okToPlaceShipAt(row, column, horizontal, this);
-				
-				System.out.println("row attempt: " + row);
-				System.out.println("column attempt: " + column);
-				System.out.println("Destroyer satisfied counter: " + satisfiedCounter);
-				
-				satisfiedCounter++;
+
 			}
 			destroyer.placeShipAt(row, column, horizontal, this);
 		}
@@ -180,7 +160,6 @@ public class Ocean {
 			int column = 0;
 			boolean horizontal = true;
 
-			int satisfiedCounter = 0;
 			while (satisfied == false) {
 
 				// generate the row, column, horizontal variables
@@ -192,12 +171,7 @@ public class Ocean {
 				// if it is okay to place ship, breaks out of the while loop
 				// if not, stays in the loop and generates new variables
 				satisfied = submarine.okToPlaceShipAt(row, column, horizontal, this);
-				
-				System.out.println("row attempt: " + row);
-				System.out.println("column attempt: " + column);
-				System.out.println("Submarine satisfied counter: " + satisfiedCounter);
-				
-				satisfiedCounter++;
+
 			}
 			submarine.placeShipAt(row, column, horizontal, this);
 		}
@@ -298,9 +272,19 @@ public class Ocean {
 		return this.shotAt;
 	}
 	
-	// Getters
+	// Setters
 	void setShotAtArray(int row, int column) {
 		this.shotAt[row][column] = true;
+	}
+	
+	/**
+	 * Set a grid cell to one of the ships.
+	 * @param row
+	 * @param column
+	 * @param ship
+	 */
+	void setShipArray(int row, int column, Ship ship) {
+		this.ships[row][column] = ship;
 	}
 
 	/**

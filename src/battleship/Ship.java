@@ -141,25 +141,6 @@ public abstract class Ship {
 		}
 
 		/*
-		 * // new version int shipLength = this.getLength();
-		 * 
-		 * if (horizontal) { if (row == 9) { for (int i = 0; i < shipLength; i++) { for
-		 * (int j = -1; j < 1; j++) { if (ocean.isOccupied(row + j, column - i)) {
-		 * return false; } } } } else if (row == 0) { for (int i = 0; i < shipLength;
-		 * i++) { for (int j = 0; j < 2; j++) { if (ocean.isOccupied(row + j, column -
-		 * i)) { return false; } } } } else { for (int i = 0; i < shipLength; i++) { for
-		 * (int j = -1; j < 2; j++) { if (ocean.isOccupied(row + j, column - i)) {
-		 * return false; } } } } } else { if (column == 9) { for (int i = 0; i <
-		 * shipLength; i++) { for (int j = -1; j < 1; j++) { if (ocean.isOccupied(row -
-		 * i, column + j)) { return false; } } } } else if (column == 0) { for (int i =
-		 * 0; i < shipLength; i++) { for (int j = 0; j < 2; j++) { if
-		 * (ocean.isOccupied(row - i, column + j)) { return false; } } } } else { for
-		 * (int i = 0; i < shipLength; i++) { for (int j = -1; j < 2; j++) { if
-		 * (ocean.isOccupied(row - i, column + j)) { return false; } } } } }
-		 * 
-		 */
-
-		/*
 		 * Get the ship's extent using the getShipExtent() helper method. If the last
 		 * element of the extent array is less than 0, the ship is "hanging off" the
 		 * edge of the board and its position is invalid.
@@ -204,7 +185,7 @@ public abstract class Ship {
 
 		if (horizontal) {
 			/*
-			 * if horizontally oriented, take row coordinate of ship's bow and subtract
+			 * if horizontally oriented, take column coordinate of ship's bow and subtract
 			 * ship's length
 			 */
 			for (int i = 0; i < shipLength; i++) {
@@ -212,7 +193,7 @@ public abstract class Ship {
 			}
 		} else {
 			/*
-			 * if vertically oriented, take column coordinate of ship's bow and subtract
+			 * if vertically oriented, take row coordinate of ship's bow and subtract
 			 * ship's length
 			 */
 			for (int i = 0; i < shipLength; i++) {
@@ -327,15 +308,18 @@ public abstract class Ship {
 
 		// get the current arrangement of the ocean
 		Ship[][] ships = ocean.getShipArray();
-		this.bowRow = row;
-		this.bowColumn = column;
-		this.horizontal = horizontal;
+		this.setBowRow(row);
+		this.setBowColumn(column);
+		this.setHorizontal(horizontal);
 
 		if (horizontal) {
 			// if the ship is horizontally oriented
 			// mark all points from [row][column] to [row][column - length + 1] to be the
 			// ship
 			for (int i = column - this.length + 1; i <= column; i++) {
+				
+				//ocean.setShipArray(row, i, this);
+				
 				ships[row][i] = this;
 			}
 		} else {
@@ -343,6 +327,7 @@ public abstract class Ship {
 			// mark all points from [row][column] to [row - length + 1][column] to be the
 			// ship
 			for (int i = row - this.length + 1; i <= row; i++) {
+				//ocean.setShipArray(i, column, this);
 				ships[i][column] = this;
 			}
 		}

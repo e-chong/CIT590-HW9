@@ -213,6 +213,7 @@ class ShipTest_v2 {
 		boolean horizontal = true;
 		boolean ok = battleship.okToPlaceShipAt(row, column, horizontal, ocean);
 		assertTrue(ok, "OK to place ship here.");
+		battleship.placeShipAt(row, column, horizontal, ocean);
 		
 		//TODO
 		//More tests
@@ -222,6 +223,7 @@ class ShipTest_v2 {
 		horizontal = true;
 		boolean ok1 = submarine.okToPlaceShipAt(row, column, horizontal, ocean);
 		assertTrue(ok1, "OK to place ship here.");
+		submarine.placeShipAt(row, column, horizontal, ocean);
 		
 		Ship cruiser = new Cruiser();
 		row = 2;

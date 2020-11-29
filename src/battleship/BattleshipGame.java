@@ -33,25 +33,25 @@ public class BattleshipGame {
 
 		// welcome message
 		this.printWelcome();
-		
+
 		boolean gameState = false;
 		// run
 		while (gameState == false) {
 			// print the ocean
 			ocean.print();
-			
+
 			// ask for the player's next shot
 			this.askNextShot();
-			
+
 			// assign first number to variable "row" and second to variable "col"
 			String entry = scanner.next();
 			String[] move = entry.split(",");
 			int row = Integer.parseInt(move[0]);
 			int col = Integer.parseInt(move[1]);
-			
+
 			// take the shot
 			boolean hit = ocean.shootAt(row, col);
-			
+
 			// if it was a hit, return a success message
 			if (hit) {
 				System.out.println("Hit!");
@@ -60,29 +60,27 @@ public class BattleshipGame {
 				if (ship.isSunk()) {
 					System.out.println("You sank a " + ship.getShipType() + "!");
 				}
-			// otherwise return a miss message
+				// otherwise return a miss message
 			} else {
 				System.out.println("Miss :(");
 			}
-						
+
 			// print number of shots taken so far
 			String shotsFired = String.valueOf(ocean.getShotsFired());
 			System.out.println("");
 			System.out.println("You've fired " + shotsFired + " shot(s) so far.");
 			System.out.println("");
-						
+
 			gameState = ocean.isGameOver();
 		}
-		
+
 		String shotsFired = String.valueOf(ocean.getShotsFired());
-		
+
 		System.out.println("Game over!");
 		System.out.println("It took you " + shotsFired + " to win.");
-		
-		scanner.close();
-		
 
-		
+		scanner.close();
+
 	}
 
 	/**
