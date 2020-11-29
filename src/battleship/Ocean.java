@@ -66,7 +66,7 @@ public class Ocean {
 		// iterate through the one battleship
 		for (int i = 0; i < 1; i++) {
 			// initialize the ship
-			Ship Battleship = new Battleship();
+			Battleship battleship = new Battleship();
 
 			boolean satisfied = false;
 
@@ -85,15 +85,15 @@ public class Ocean {
 				// check whether generated location is okToPlaceShipAt
 				// if it is okay to place ship, breaks out of the while loop
 				// if not, stays in the loop and generates new variables
-				satisfied = Battleship.okToPlaceShipAt(row, column, horizontal, this);
+				satisfied = battleship.okToPlaceShipAt(row, column, horizontal, this);
 			}
-			Battleship.placeShipAt(row, column, horizontal, this);
+			battleship.placeShipAt(row, column, horizontal, this);
 		}
 
 		// iterate through the two cruisers
 		for (int i = 0; i < 2; i++) {
 			// initialize the ship
-			Ship Cruiser = new Cruiser();
+			Cruiser cruiser = new Cruiser();
 
 			boolean satisfied = false;
 
@@ -112,15 +112,15 @@ public class Ocean {
 				// check whether generated location is okToPlaceShipAt
 				// if it is okay to place ship, breaks out of the while loop
 				// if not, stays in the loop and generates new variables
-				satisfied = Cruiser.okToPlaceShipAt(row, column, horizontal, this);
+				satisfied = cruiser.okToPlaceShipAt(row, column, horizontal, this);
 			}
-			Cruiser.placeShipAt(row, column, horizontal, this);
+			cruiser.placeShipAt(row, column, horizontal, this);
 		}
 
 		// iterate through the three destroyers
 		for (int i = 0; i < 3; i++) {
 			// initialize the ship
-			Ship Destroyer = new Destroyer();
+			Destroyer destroyer = new Destroyer();
 
 			boolean satisfied = false;
 
@@ -139,15 +139,15 @@ public class Ocean {
 				// check whether generated location is okToPlaceShipAt
 				// if it is okay to place ship, breaks out of the while loop
 				// if not, stays in the loop and generates new variables
-				satisfied = Destroyer.okToPlaceShipAt(row, column, horizontal, this);
+				satisfied = destroyer.okToPlaceShipAt(row, column, horizontal, this);
 			}
-			Destroyer.placeShipAt(row, column, horizontal, this);
+			destroyer.placeShipAt(row, column, horizontal, this);
 		}
 
 		// iterate through the four submarines
 		for (int i = 0; i < 4; i++) {
 			// initialize the ship
-			Ship Submarine = new Submarine();
+			Submarine submarine = new Submarine();
 
 			boolean satisfied = false;
 
@@ -166,9 +166,9 @@ public class Ocean {
 				// check whether generated location is okToPlaceShipAt
 				// if it is okay to place ship, breaks out of the while loop
 				// if not, stays in the loop and generates new variables
-				satisfied = Submarine.okToPlaceShipAt(row, column, horizontal, this);
+				satisfied = submarine.okToPlaceShipAt(row, column, horizontal, this);
 			}
-			Submarine.placeShipAt(row, column, horizontal, this);
+			submarine.placeShipAt(row, column, horizontal, this);
 		}
 	}
 
@@ -214,7 +214,6 @@ public class Ocean {
 		} else {
 			return false;
 		}
-
 	}
 
 	// Getters
@@ -293,10 +292,8 @@ public class Ocean {
 				} else {
 					rowString += " " + ships[row][col].toString();
 				}
-
 			}
 			System.out.println(rowString);
 		}
-
 	}
 }
