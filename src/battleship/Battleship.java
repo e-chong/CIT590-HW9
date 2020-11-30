@@ -1,5 +1,9 @@
 package battleship;
 
+/**
+ * This class extends Ship and describes a ship of length 4
+ *
+ */
 public class Battleship extends Ship {
 
 	// hard-code the ship's length and type
@@ -11,7 +15,7 @@ public class Battleship extends Ship {
 	 * Creates a Battleship using the constructor from the Ship extended class
 	 */
 	public Battleship() {
-		super(Battleship.length);		
+		super(Battleship.length);
 	}
 
 	// methods

@@ -3,6 +3,7 @@ package battleship;
 import java.util.Scanner;
 
 /**
+ * This is the main class, containing the main method for playing the game.
  * 
  * @author Tianxiao Zhang, Eugene Chong
  *

@@ -2,6 +2,10 @@ package battleship;
 
 import java.util.ArrayList;
 
+/**
+ * Abstract class describing the characteristics common to all ships.
+ *
+ */
 public abstract class Ship {
 	/*
 	 * describes the characteristics common to all ships
@@ -177,7 +181,7 @@ public abstract class Ship {
 	 * @param horizontal
 	 * @return
 	 */
-	public ArrayList<Integer> getShipExtent(int row, int column, boolean horizontal) {
+	private ArrayList<Integer> getShipExtent(int row, int column, boolean horizontal) {
 		// First initialize an int ArrayList the same length as the ship
 		ArrayList<Integer> extent = new ArrayList<Integer>();
 
@@ -193,8 +197,8 @@ public abstract class Ship {
 			}
 		} else {
 			/*
-			 * if vertically oriented, take row coordinate of ship's bow and subtract
-			 * ship's length
+			 * if vertically oriented, take row coordinate of ship's bow and subtract ship's
+			 * length
 			 */
 			for (int i = 0; i < shipLength; i++) {
 				extent.add(row - i);
@@ -214,7 +218,7 @@ public abstract class Ship {
 	 * @param ocean
 	 * @return
 	 */
-	boolean checkNeighbors(int row, int column, ArrayList<Integer> extent, boolean horizontal, Ocean ocean) {
+	private boolean checkNeighbors(int row, int column, ArrayList<Integer> extent, boolean horizontal, Ocean ocean) {
 
 		// initialize an occupied boolean variable
 		boolean occupied;
@@ -317,9 +321,9 @@ public abstract class Ship {
 			// mark all points from [row][column] to [row][column - length + 1] to be the
 			// ship
 			for (int i = column - this.length + 1; i <= column; i++) {
-				
-				//ocean.setShipArray(row, i, this);
-				
+
+				// ocean.setShipArray(row, i, this);
+
 				ships[row][i] = this;
 			}
 		} else {
@@ -327,7 +331,7 @@ public abstract class Ship {
 			// mark all points from [row][column] to [row - length + 1][column] to be the
 			// ship
 			for (int i = row - this.length + 1; i <= row; i++) {
-				//ocean.setShipArray(i, column, this);
+				// ocean.setShipArray(i, column, this);
 				ships[i][column] = this;
 			}
 		}

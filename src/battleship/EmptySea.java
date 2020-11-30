@@ -1,5 +1,10 @@
 package battleship;
 
+/**
+ * This class extends Ship and describes a part of the ocean that doesn't have a
+ * ship in it.
+ *
+ */
 public class EmptySea extends Ship {
 
 	// hard-code the ship's length and type
@@ -47,7 +52,8 @@ public class EmptySea extends Ship {
 	/**
 	 * Override the toString() method in the Ship extended class
 	 * 
-	 * @return returns "-", a character indicating a shot has been fired but nothing has been hit
+	 * @return returns "-", a character indicating a shot has been fired but nothing
+	 *         has been hit
 	 */
 	@Override
 	public String toString() {

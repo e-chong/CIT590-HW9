@@ -1,7 +1,11 @@
 package battleship;
 
+/**
+ * This class extends Ship and describes a ship of length 3
+ *
+ */
 public class Cruiser extends Ship {
-	
+
 	// hard-code the ship's length and type
 	static final int length = 3;
 	static final String type = "cruiser";
@@ -11,7 +15,7 @@ public class Cruiser extends Ship {
 	 * Creates a Cruiser using the constructor from the Ship extended class
 	 */
 	public Cruiser() {
-		super(Cruiser.length);		
+		super(Cruiser.length);
 	}
 
 	// methods

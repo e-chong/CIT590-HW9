@@ -15,7 +15,7 @@ public class Ocean {
 	private Ship[][] ships = new Ship[10][10];
 
 	/**
-	 * Used to which grid cells have been fired upon
+	 * Used to determine which grid cells have been fired upon
 	 */
 	private boolean[][] shotAt = new boolean[10][10];
 
@@ -77,7 +77,7 @@ public class Ocean {
 			boolean horizontal = true;
 
 			while (satisfied == false) {
-				
+
 				// generate the row, column, horizontal variables
 				row = rand.nextInt(10);
 				column = rand.nextInt(10);
@@ -87,7 +87,7 @@ public class Ocean {
 				// if it is okay to place ship, breaks out of the while loop
 				// if not, stays in the loop and generates new variables
 				satisfied = battleship.okToPlaceShipAt(row, column, horizontal, this);
-				
+
 			}
 			battleship.placeShipAt(row, column, horizontal, this);
 		}
@@ -114,8 +114,8 @@ public class Ocean {
 				// check whether generated location is okToPlaceShipAt
 				// if it is okay to place ship, breaks out of the while loop
 				// if not, stays in the loop and generates new variables
-				satisfied = cruiser.okToPlaceShipAt(row, column, horizontal, this);				
-				
+				satisfied = cruiser.okToPlaceShipAt(row, column, horizontal, this);
+
 			}
 			cruiser.placeShipAt(row, column, horizontal, this);
 		}
@@ -187,16 +187,19 @@ public class Ocean {
 	boolean isOccupied(int row, int column) {
 		// Get the type of ship in the given row/column
 		String shipType = this.getShipArray()[row][column].getShipType();
-		
+
 		// Return true if the shipType is NOT "empty"
 		return (shipType.equals(EmptySea.type) == false);
 	}
 
 	/**
+	 * Takes a shot at the location requested by the user. Increments the shotsFired
+	 * counter, the hitCount, and the shipsSunk count depending on the outcome. Also
+	 * returns a boolean value.
 	 * 
 	 * @param row
 	 * @param column
-	 * @return
+	 * @return true if the given location contains a ship that is still afloat
 	 */
 	boolean shootAt(int row, int column) {
 		// Update the number of shots that have been fired
@@ -207,7 +210,7 @@ public class Ocean {
 
 		// Check that area is occupied AND ship is still afloat
 		boolean hit = this.ships[row][column].shootAt(row, column);
-		
+
 		// returns true if the given location contains a "real" ship, still afloat
 		if (hit) {
 			this.hitCount++;
@@ -263,7 +266,7 @@ public class Ocean {
 		// returns the 10*10 array of Ships
 		return this.ships;
 	}
-	
+
 	/**
 	 * 
 	 * @return the 10x10 shotAt array
@@ -271,14 +274,21 @@ public class Ocean {
 	public boolean[][] getShotAtArray() {
 		return this.shotAt;
 	}
-	
+
 	// Setters
-	void setShotAtArray(int row, int column) {
+	/**
+	 * Sets the shotAt array to true at the given location.
+	 * 
+	 * @param row
+	 * @param column
+	 */
+	private void setShotAtArray(int row, int column) {
 		this.shotAt[row][column] = true;
 	}
-	
+
 	/**
 	 * Set a grid cell to one of the ships.
+	 * 
 	 * @param row
 	 * @param column
 	 * @param ship
@@ -294,11 +304,11 @@ public class Ocean {
 		// print the column labels
 		String columnLabels = "  0 1 2 3 4 5 6 7 8 9";
 		System.out.println(columnLabels);
-		
+
 		// get the arrays for printing
 		boolean[][] shotAt = this.getShotAtArray();
 		Ship[][] ships = this.getShipArray();
-		
+
 		for (int row = 0; row < 10; row++) {
 			String rowString = String.valueOf(row);
 			for (int col = 0; col < 10; col++) {
